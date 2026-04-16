@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Root Config</title>
+  
+  <script src="https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+
+  <script type="systemjs-importmap">
+   {
+    "imports": {
+      "react": "https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.production.min.js",
+      "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.production.min.js",
+      "single-spa": "https://cdn.jsdelivr.net/npm/single-spa@5.9.0/lib/system/single-spa.min.js",
+      "vue": "https://cdn.jsdelivr.net/npm/vue@3.2.47/dist/vue.global.prod.js",
+      "@test/root-config": "//localhost:9000/test-root-config.js",
+      "@test/react-app": "//localhost:8081/test-react-app.js",
+      "@test/vue-app": "//localhost:8082/test-vue-app.js"
+    }
+  }
+  </script>
+
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/single-spa@5.9.0/lib/system/single-spa.min.js" as="script">
+  <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/system.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/extras/amd.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+      list-style: none;
+      text-decoration: none;
+  
+    }
+    body {
+      background: #111;
+      color: #fff;
+    }
+    .shell-header {
+      background: #1f2937;
+      color: #fff;
+      padding: 24px 20px;
+      text-align: center;
+    }
+    .shell-header h1 {
+      font-size: 1.9rem;
+      margin-bottom: 16px;
+      letter-spacing: 0.02em;
+    }
+    .shell-nav {
+      display: inline-flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      padding: 10px 0;
+    }
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+    .skip-link:focus {
+      left: 1rem;
+      top: 1rem;
+      width: auto;
+      height: auto;
+      padding: 0.75rem 1rem;
+      background: #2563eb;
+      color: #fff;
+      z-index: 1000;
+    }
+    .shell-nav button {
+      min-width: 140px;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #2563eb, #4f46e5);
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+    }
+    .shell-nav button:hover {
+      background: linear-gradient(135deg, #1d4ed8, #4338ca);
+      transform: translateY(-1px);
+    }
+    .shell-nav button:focus {
+      outline: 3px solid rgba(59, 130, 246, 0.75);
+      outline-offset: 3px;
+    }
+    .shell-nav button:active {
+      transform: translateY(0);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    
+    <div class="shell-header">
+      <h1>The Root Shell is Running!</h1>
+      <nav class="shell-nav" aria-label="Shell navigation">
+        <button type="button" onclick="singleSpaNavigate('/')" aria-label="Go to home">Home</button>
+        <button type="button" onclick="singleSpaNavigate('/react')" aria-label="Open React app">Show React App</button>
+        <button type="button" onclick="singleSpaNavigate('/vue')" aria-label="Open Vue app">Show Vue App</button>
+  </div>
+
+  <script>
+    window.singleSpaNavigate = function(path) {
+      window.history.pushState({}, '', path);
+    }
+  </script>
+
+  <main id="main-content"></main>
+
+  <script>
+    System.import('@test/root-config');
+  </script>
+</body>
+</html>
